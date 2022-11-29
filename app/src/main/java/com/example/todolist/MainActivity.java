@@ -82,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // This is just for testing.
+        Intent intent=new Intent(this,Location.class);
+        startActivity(intent);
+
         //Creates the notification channel that can be toggled on in the app info settings - Default is off.
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
