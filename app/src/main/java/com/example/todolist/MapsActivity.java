@@ -72,12 +72,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         autocompleteFragment.setCountries("CA");
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID,Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID,Place.Field.NAME, Place.Field.LAT_LNG));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected (Place place) {
                 // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place. getName () +  place.getId());
+                String TAG="ANSWERAGYA";
+                Log.i(TAG, "Place: " + place. getName () +  place.getId()+ place.getLatLng());
 
             }
             @Override
