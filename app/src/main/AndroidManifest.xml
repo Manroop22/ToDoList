@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" tools:node="remove"/>
 
     <application
         android:allowBackup="true"
@@ -36,13 +38,6 @@
             android:name=".MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
-        <activity
-            android:name=".Location"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".EditTagActivity"
             android:exported="false">

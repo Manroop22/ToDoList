@@ -81,13 +81,6 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // This is just for testing.
-        Intent intent=new Intent(this,MapsActivity.class);
-        startActivity(intent);
-        // For testing the maps api
-
-
         //Creates the notification channel that can be toggled on in the app info settings - Default is off.
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
@@ -127,8 +120,16 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
         });
 
         Button submitButton = findViewById(R.id.submitButton);
-
-        submitButton.setOnClickListener(this::createToDo);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // This is just for testing.
+                Intent intent=new Intent(view.getContext(),MapsActivity.class);
+                startActivity(intent);
+                // For testing the maps api
+            }
+        });
+        //submitButton.setOnClickListener(this::createToDo);
         // allowing use to add to-dos by pressing enter
         inputToDo.setOnEditorActionListener((textView, i, keyEvent) -> {
             if (i == 6 || keyEvent.getAction() == 0) {
