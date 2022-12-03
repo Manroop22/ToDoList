@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
@@ -47,11 +48,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     PlaceLikelihood currentPlace;
     LatLng currentPlaceLatlng;
     String currentPlaceName;
+    Button currentLocationBtn;
+    Button saveLocationBtn;
+    Button cancelLocationBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        currentLocationBtn=findViewById(R.id.currentLocationBtn);
+        saveLocationBtn=findViewById(R.id.saveLocationBtn);
+        cancelLocationBtn=findViewById(R.id.cancelLocationBtn);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -136,7 +143,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // See https://developer.android.com/training/permissions/requesting
             getLocationPermission();
         }
-
     }
 
     private void getLocationPermission() {
@@ -188,7 +194,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kelowna));
     }
     public void useCurrentLocation(View view){
-        autocompleteFragment.setText(currentPlaceName); // sets the search bar to the the name of the current Place.
-        updateMap(currentPlaceName,currentPlaceLatlng);
+        if(currentPlace.getPlace()!=null) {
+            autocompleteFragment.setText(currentPlaceName); // sets the search bar to the the name of the current Place.
+            updateMap(currentPlaceName, currentPlaceLatlng);
+        }
+        else return;
+    }
+    public void onSave(View view){
+
+    }
+    public void onCancel(View view){
+        finish(); // Simply goes back to previous activity.
     }
 }

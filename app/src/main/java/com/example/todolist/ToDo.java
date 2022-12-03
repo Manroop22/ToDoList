@@ -2,6 +2,8 @@ package com.example.todolist;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,6 +21,8 @@ public class ToDo implements Serializable {
     private Date date;
     private float maxGrade;
     private float gradeReceived;
+    private String locationName;
+    private LatLng locationLatLng;
     private final ArrayList<String> tags = new ArrayList<>();
 
 
@@ -66,6 +70,22 @@ public class ToDo implements Serializable {
 
     public void setGradeReceived(float gradeReceived) { this.gradeReceived = gradeReceived; }
 
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public LatLng getLocationLatLng() {
+        return locationLatLng;
+    }
+
+    public void setLocationLatLng(LatLng locationLatLng) {
+        this.locationLatLng = locationLatLng;
+    }
+
     public boolean addTag(String tag) {
         if (!tag.equals("")) {
             tags.add(tag);
@@ -83,17 +103,20 @@ public class ToDo implements Serializable {
         return tags;
     }
 
-    @NonNull
     @Override
     public String toString() {
         return "ToDo{" +
-                "text='" + text + '\'' +
+                "uuid=" + uuid +
+                ", text='" + text + '\'' +
                 ", done=" + done +
                 ", date=" + date +
+                ", maxGrade=" + maxGrade +
+                ", gradeReceived=" + gradeReceived +
+                ", locationName='" + locationName + '\'' +
+                ", locationLatLng=" + locationLatLng +
                 ", tags=" + tags +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         return getClass() == o.getClass() && uuid.equals(((ToDo) o).uuid);
