@@ -234,6 +234,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     public void onSave(View view){
         Log.i("Saved Values",addedLocationName+", "+addedLocationLatLng);
+        if(addedLocationName==null || addedLocationLatLng==null){
+            Toast.makeText(this, "No Location Selected", Toast.LENGTH_SHORT).show(); // Error Message that pops up in the form of a Toast
+            return;
+        }
         ToDo todo=toDoList.get(toDoIndex); // This gets the todo to be changed.
         todo.setLocationName(addedLocationName);
         todo.setLatitude(Double.toString(addedLocationLatLng.latitude));
@@ -247,6 +251,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
     public void onCancel(View view){
+        // If the user has not entered any location and wants to cancel, then the Location Tag that had been added to the the todo will be removed.
+        if(addedLocationName==null || addedLocationLatLng==null){
+            ToDo todo=toDoList.get(toDoIndex);
+            todo.removeTag("Location");
+            setResult(RESULT_OK, new Intent().putExtra("ToDoList",toDoList));
+        }
         finish(); // Simply goes back to previous activity.
     }
 }
