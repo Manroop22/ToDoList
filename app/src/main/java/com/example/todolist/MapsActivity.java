@@ -42,6 +42,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private static final String TAG="PANGA";
+    AutocompleteSupportFragment autocompleteFragment;
+    PlaceLikelihood currentPlace;
+    LatLng currentPlaceLatlng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +63,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PlacesClient placesClient=Places.createClient(this);
 
         // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+         autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager () .findFragmentById(R.id.autocomplete_fragment);
-        autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
+        autocompleteFragment.setTypeFilter(TypeFilter.ESTABLISHMENT);
 
        /*autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
                 new LatLng(-33.880490, 151.184363),
                 new LatLng(-33.858754, 151.229596)));
 
         */
-        autocompleteFragment.setCountries("CA");
-
+        autocompleteFragment.setCountries("CA","US","England","India");
+        //autocompleteFragment.setText(currentPlace.getPlace().getName());
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID,Place.Field.NAME, Place.Field.LAT_LNG));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -79,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // TODO: Get info about the selected place.
                 String TAG="ANSWERAGYA";
                 Log.i(TAG, "Place: " + place. getName () +  place.getId()+ place.getLatLng());
-
+                currentPlaceLatlng=place.getLatLng();
             }
             @Override
             public void onError (Status status) {
@@ -89,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         // Use fields to define the data types to return.
-        List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
+        List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME,Place.Field.ADDRESS,Place.Field.LAT_LNG);
 
 // Use the builder to create a FindCurrentPlaceRequest.
         FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
@@ -97,14 +100,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             @SuppressLint("MissingPermission") Task<FindCurrentPlaceResponse> placeResponse = placesClient.findCurrentPlace(request);
+
             placeResponse.addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
                     FindCurrentPlaceResponse response = task.getResult();
+                    currentPlace=response.getPlaceLikelihoods().get(0);
                     for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
-                        Log.i(TAG, String.format("Place '%s' has likelihood: %f",
-                                placeLikelihood.getPlace().getName(),
-                                placeLikelihood.getLikelihood()));
+                        System.out.println(placeLikelihood);
+                        if(placeLikelihood.getLikelihood()> currentPlace.getLikelihood()) {
+                            currentPlace = placeLikelihood; // This will be the most likely place.
+                            System.out.println(placeLikelihood); // This is just for testing.
+                            Log.i(TAG, String.format("Place '%s' has likelihood: %f",
+                                    placeLikelihood.getPlace().getName(),
+                                    placeLikelihood.getLikelihood()));
+                            break;
+                        }
                     }
+                     currentPlaceLatlng=currentPlace.getPlace().getLatLng();;
+                        if(currentPlaceLatlng!=null) {
+                            updateMap(currentPlace.getPlace().getName(),currentPlaceLatlng);
+                        }
+                       else System.out.println("Error");
                 } else {
                     Exception exception = task.getException();
                     if (exception instanceof ApiException) {
@@ -155,14 +171,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Manifest.permission.ACCESS_COARSE_LOCATION
         });
     }
+    public void updateMap(String name, LatLng latLng){
+        mMap.addMarker(new MarkerOptions().position(latLng).title(name));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
+        // Add a marker in Kelowna and move the camera by default
         LatLng kelowna = new LatLng(49.940147, -119.396516);
-        mMap.addMarker(new MarkerOptions().position(kelowna).title("Marker in Kelowna"));
+        mMap.addMarker(new MarkerOptions().position(kelowna).title("Kelowna"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kelowna));
     }
 }
