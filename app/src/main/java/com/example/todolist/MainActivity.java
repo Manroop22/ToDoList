@@ -375,10 +375,14 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
         itemList.add(new PowerMenuItem("Edit", false));
         itemList.add(new PowerMenuItem("Edit Tags", false));
         itemList.add(new PowerMenuItem("Delete", false));
-        itemList.add(new PowerMenuItem("Set task as 'Graded'",false));
         itemList.add(new PowerMenuItem("Add Location", false));
+        itemList.add(new PowerMenuItem("Set task as 'Graded'",false));
+
         if(clickedToDo.getTags().contains("Graded")){
             itemList.add(new PowerMenuItem("Enter Grade Received",false));
+        }
+        if(clickedToDo.getTags().contains("Location")){
+            itemList.get(3).setTitle("Edit Location");
         }
 
         PowerMenu powerMenu = new PowerMenu.Builder(this)
@@ -445,8 +449,22 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
                 Intent i = new Intent(this, MapsActivity.class);
                 i.putExtra("ToDoList", toDoList);
                 i.putExtra("Index", toDoList.indexOf(clickedToDo));
+                // These are just the default values being passed.
+                i.putExtra("Latitude","49.940147");
+                i.putExtra("Longitude","-119.396516");
+                i.putExtra("LocationName","Kelowna");
                 startActivityForResult(i, ADD_TAGS_ACTIVITY_REQUEST);
-            } else if(item.getTitle().equals("Enter Grade Received")) { // This will show up only for Graded ToDos.
+            }else if(item.getTitle().equals("Edit Location")){
+                Intent i=new Intent(this,MapsActivity.class);
+                i.putExtra("ToDoList", toDoList);
+                i.putExtra("Index", toDoList.indexOf(clickedToDo));
+                Log.i("Isha: ",clickedToDo.getLatitude()+", "+clickedToDo.getLongitude());
+                i.putExtra("Latitude",clickedToDo.getLatitude());
+                i.putExtra("Longitude",clickedToDo.getLongitude());
+                i.putExtra("LocationName",clickedToDo.getLocationName());
+                startActivityForResult(i,EDIT_TODO_ACTIVITY_REQUEST);
+            }
+            else if(item.getTitle().equals("Enter Grade Received")) { // This will show up only for Graded ToDos.
                 Intent i=new Intent(this,GradeReceived.class);
                 i.putExtra("ToDoList", toDoList);
                 i.putExtra("Index", toDoList.indexOf(clickedToDo));

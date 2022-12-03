@@ -59,6 +59,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Button currentLocationBtn;
     Button saveLocationBtn;
     Button cancelLocationBtn;
+    // These will be used if the location has already been set. Otherwise, we will use these to the latitude and longitude values of UBC Okanagan.
+    double defaultLatitude;
+    double defaultLongitude;
+    String defaultLocationName;
     private ArrayList<ToDo> toDoList;
     private int toDoIndex;
 
@@ -71,6 +75,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent=getIntent();
         toDoList=(ArrayList<ToDo>) intent.getSerializableExtra("ToDoList");
         toDoIndex= intent.getIntExtra("Index", 0);
+        defaultLatitude=Double.parseDouble(intent.getStringExtra("Latitude"));
+        defaultLongitude=Double.parseDouble(intent.getStringExtra("Longitude"));
+        defaultLocationName=intent.getStringExtra("LocationName");
+        if(defaultLocationName.equals(null))
+            defaultLocationName="Kelowna";
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -203,9 +212,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Kelowna and move the camera by default
-        LatLng kelowna = new LatLng(49.940147, -119.396516);
-        mMap.addMarker(new MarkerOptions().position(kelowna).title("Kelowna"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(kelowna));
+        LatLng location = new LatLng(defaultLatitude, defaultLongitude);
+        mMap.addMarker(new MarkerOptions().position(location).title(defaultLocationName));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
     }
     public void useCurrentLocation(View view){
         if(currentPlace!=null) {
@@ -223,8 +232,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i("Saved Values",addedLocationName+", "+addedLocationLatLng);
         ToDo todo=toDoList.get(toDoIndex); // This gets the todo to be changed.
         todo.setLocationName(addedLocationName);
-        todo.setLatitude(addedLocationLatLng.latitude);
-        todo.setLongitude(addedLocationLatLng.longitude);
+        todo.setLatitude(Double.toString(addedLocationLatLng.latitude));
+        todo.setLongitude(Double.toString(addedLocationLatLng.longitude));
         Log.i("Milgi", toDoList.toString());
         setResult(RESULT_OK, new Intent().putExtra("ToDoList",toDoList));
         try {

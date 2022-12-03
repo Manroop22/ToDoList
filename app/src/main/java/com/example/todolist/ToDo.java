@@ -22,8 +22,13 @@ public class ToDo implements Serializable {
     private float maxGrade;
     private float gradeReceived;
     private String locationName;
-    private double latitude;
-    private double longitude;
+    /*
+    The latitude and longitude are Strings even though they should be double. This is because while saving location latitude and longitude values,
+    the computer performs approximations with the double values which results in changing the latitude and longitude position. As a result,
+    the correct position is not return back. So, these have been created as String and their values are converted from String to Double and vice-versa.
+     */
+    private String latitude;
+    private String longitude;
     private final ArrayList<String> tags = new ArrayList<>();
 
 
@@ -79,19 +84,19 @@ public class ToDo implements Serializable {
         this.locationName = locationName;
     }
 
-    public double getLatitude() {
+    public String  getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
