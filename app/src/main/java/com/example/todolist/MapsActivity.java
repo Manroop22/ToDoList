@@ -36,6 +36,7 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.maps.android.SphericalUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -214,6 +215,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Kelowna and move the camera by default
         LatLng location = new LatLng(defaultLatitude, defaultLongitude);
         mMap.addMarker(new MarkerOptions().position(location).title(defaultLocationName));
+        // Used for Testing.
+        mMap.addMarker(new MarkerOptions().position(new LatLng(49.8872315,-119.3866862)).title(defaultLocationName));
+        Log.i("Distance",""+SphericalUtil.computeDistanceBetween(location, new LatLng(49.8872315,-119.3866862)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
     }
     public void useCurrentLocation(View view){
