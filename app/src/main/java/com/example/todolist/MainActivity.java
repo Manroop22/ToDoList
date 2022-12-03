@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.skydoves.powermenu.CustomPowerMenu;
@@ -444,8 +445,7 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
                 Intent i = new Intent(this, MapsActivity.class);
                 i.putExtra("ToDoList", toDoList);
                 i.putExtra("Index", toDoList.indexOf(clickedToDo));
-                startActivityForResult(i, EDIT_TODO_ACTIVITY_REQUEST);
-                Log.i("Vaapsi Te", clickedToDo.getLocationName()+", "+clickedToDo.getLocationLatLng());
+                startActivityForResult(i, ADD_TAGS_ACTIVITY_REQUEST);
             } else if(item.getTitle().equals("Enter Grade Received")) { // This will show up only for Graded ToDos.
                 Intent i=new Intent(this,GradeReceived.class);
                 i.putExtra("ToDoList", toDoList);
@@ -494,7 +494,6 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
             }
         }
     }
-
     // called when users click the checkbox on a to-do
     @Override
     public void onCheckClick(View view, int position) {

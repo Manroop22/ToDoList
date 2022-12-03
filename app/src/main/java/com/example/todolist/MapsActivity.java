@@ -223,9 +223,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i("Saved Values",addedLocationName+", "+addedLocationLatLng);
         ToDo todo=toDoList.get(toDoIndex); // This gets the todo to be changed.
         todo.setLocationName(addedLocationName);
-        todo.setLocationLatLng(addedLocationLatLng);
+        todo.setLatitude(addedLocationLatLng.latitude);
+        todo.setLongitude(addedLocationLatLng.longitude);
         Log.i("Milgi", toDoList.toString());
-        setResult(RESULT_OK, new Intent().putExtra("TodoList",toDoList));
+        setResult(RESULT_OK, new Intent().putExtra("ToDoList",toDoList));
         try {
             finish();
         }catch (Exception e){

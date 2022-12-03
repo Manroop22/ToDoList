@@ -22,7 +22,8 @@ public class ToDo implements Serializable {
     private float maxGrade;
     private float gradeReceived;
     private String locationName;
-    private LatLng locationLatLng;
+    private double latitude;
+    private double longitude;
     private final ArrayList<String> tags = new ArrayList<>();
 
 
@@ -78,12 +79,20 @@ public class ToDo implements Serializable {
         this.locationName = locationName;
     }
 
-    public LatLng getLocationLatLng() {
-        return locationLatLng;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLocationLatLng(LatLng locationLatLng) {
-        this.locationLatLng = locationLatLng;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public boolean addTag(String tag) {
@@ -113,10 +122,12 @@ public class ToDo implements Serializable {
                 ", maxGrade=" + maxGrade +
                 ", gradeReceived=" + gradeReceived +
                 ", locationName='" + locationName + '\'' +
-                ", locationLatLng=" + locationLatLng +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", tags=" + tags +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         return getClass() == o.getClass() && uuid.equals(((ToDo) o).uuid);
