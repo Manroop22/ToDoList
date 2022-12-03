@@ -17,7 +17,7 @@
         app:queryHint="Search to-dos" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/currentLocationBtn"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

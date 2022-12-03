@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
@@ -45,6 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     AutocompleteSupportFragment autocompleteFragment;
     PlaceLikelihood currentPlace;
     LatLng currentPlaceLatlng;
+    String currentPlaceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +67,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Initialize the AutocompleteSupportFragment.
          autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager () .findFragmentById(R.id.autocomplete_fragment);
-        autocompleteFragment.setTypeFilter(TypeFilter.ESTABLISHMENT);
+        autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
 
        /*autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
                 new LatLng(-33.880490, 151.184363),
                 new LatLng(-33.858754, 151.229596)));
 
         */
-        autocompleteFragment.setCountries("CA","US","England","India");
+        autocompleteFragment.setCountries("CA","US","IN");
         //autocompleteFragment.setText(currentPlace.getPlace().getName());
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID,Place.Field.NAME, Place.Field.LAT_LNG));
@@ -81,8 +83,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onPlaceSelected (Place place) {
                 // TODO: Get info about the selected place.
                 String TAG="ANSWERAGYA";
-                Log.i(TAG, "Place: " + place. getName () +  place.getId()+ place.getLatLng());
-                currentPlaceLatlng=place.getLatLng();
+                String selectedPlaceName=place.getName();
+                LatLng selectedPlaceLatLng=place.getLatLng();
+                // change needed in names
+                Log.i(TAG, "Place: " + selectedPlaceName + selectedPlaceLatLng);
+                updateMap(selectedPlaceName,selectedPlaceLatLng);
             }
             @Override
             public void onError (Status status) {
@@ -116,11 +121,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             break;
                         }
                     }
-                     currentPlaceLatlng=currentPlace.getPlace().getLatLng();;
-                        if(currentPlaceLatlng!=null) {
-                            updateMap(currentPlace.getPlace().getName(),currentPlaceLatlng);
-                        }
-                       else System.out.println("Error");
+                     currentPlaceLatlng=currentPlace.getPlace().getLatLng();
+                    currentPlaceName=currentPlace.getPlace().getName();
                 } else {
                     Exception exception = task.getException();
                     if (exception instanceof ApiException) {
@@ -184,5 +186,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng kelowna = new LatLng(49.940147, -119.396516);
         mMap.addMarker(new MarkerOptions().position(kelowna).title("Kelowna"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kelowna));
+    }
+    public void useCurrentLocation(View view){
+        autocompleteFragment.setText(currentPlaceName); // sets the search bar to the the name of the current Place.
+        updateMap(currentPlaceName,currentPlaceLatlng);
     }
 }

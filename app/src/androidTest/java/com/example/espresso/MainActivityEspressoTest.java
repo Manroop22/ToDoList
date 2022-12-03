@@ -34,9 +34,9 @@ public class MainActivityEspressoTest {
     public void displaysHeaderCorrectly() {
         // checking that filter button is fully to the left of search bar
         onView(withId(R.id.searchView)).check(matches(isDisplayed()));
-        onView(withId(R.id.button)).check(matches(isDisplayed()));
+        onView(withId(R.id.currentLocationBtn)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.searchView)).check(isCompletelyLeftOf(withId(R.id.button)));
+        onView(withId(R.id.searchView)).check(isCompletelyLeftOf(withId(R.id.currentLocationBtn)));
     }
 
     @Test

@@ -120,16 +120,7 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
         });
 
         Button submitButton = findViewById(R.id.submitButton);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // This is just for testing.
-                Intent intent=new Intent(view.getContext(),MapsActivity.class);
-                startActivity(intent);
-                // For testing the maps api
-            }
-        });
-        //submitButton.setOnClickListener(this::createToDo);
+        submitButton.setOnClickListener(this::createToDo);
         // allowing use to add to-dos by pressing enter
         inputToDo.setOnEditorActionListener((textView, i, keyEvent) -> {
             if (i == 6 || keyEvent.getAction() == 0) {
@@ -383,6 +374,7 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
         itemList.add(new PowerMenuItem("Edit Tags", false));
         itemList.add(new PowerMenuItem("Delete", false));
         itemList.add(new PowerMenuItem("Set task as 'Graded'",false));
+        itemList.add(new PowerMenuItem("Add Location", false));
         if(clickedToDo.getTags().contains("Graded")){
             itemList.add(new PowerMenuItem("Enter Grade Received",false));
         }
@@ -443,6 +435,12 @@ public class MainActivity extends AppCompatActivity implements ToDoClickListener
                 clickedToDo.addTag("Graded");
                 clickedToDo.removeTag("Ungraded");
                 Intent i = new Intent(this, TotalGradeActivity.class);
+                i.putExtra("ToDoList", toDoList);
+                i.putExtra("Index", toDoList.indexOf(clickedToDo));
+                startActivityForResult(i, EDIT_TODO_ACTIVITY_REQUEST);
+            } else if(item.getTitle().equals("Add Location")) {
+                clickedToDo.addTag("Location");
+                Intent i = new Intent(this, MapsActivity.class);
                 i.putExtra("ToDoList", toDoList);
                 i.putExtra("Index", toDoList.indexOf(clickedToDo));
                 startActivityForResult(i, EDIT_TODO_ACTIVITY_REQUEST);
