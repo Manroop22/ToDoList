@@ -9,11 +9,13 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
@@ -35,30 +37,40 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private static final String TAG="PANGA";
     AutocompleteSupportFragment autocompleteFragment;
     PlaceLikelihood currentPlace;
+    String selectedPlaceName;
+    LatLng selectedPlaceLatLng;
+    String addedLocationName;
+    LatLng addedLocationLatLng;
     LatLng currentPlaceLatlng;
     String currentPlaceName;
     Button currentLocationBtn;
     Button saveLocationBtn;
     Button cancelLocationBtn;
+    private ArrayList<ToDo> toDoList;
+    private int toDoIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         currentLocationBtn=findViewById(R.id.currentLocationBtn);
         saveLocationBtn=findViewById(R.id.saveLocationBtn);
         cancelLocationBtn=findViewById(R.id.cancelLocationBtn);
+        Intent intent=getIntent();
+        toDoList=(ArrayList<ToDo>) intent.getSerializableExtra("ToDoList");
+        toDoIndex= intent.getIntExtra("Index", 0);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -90,10 +102,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onPlaceSelected (Place place) {
                 // TODO: Get info about the selected place.
                 String TAG="ANSWERAGYA";
-                String selectedPlaceName=place.getName();
-                LatLng selectedPlaceLatLng=place.getLatLng();
+                selectedPlaceName=place.getName();
+                selectedPlaceLatLng=place.getLatLng();
                 // change needed in names
                 Log.i(TAG, "Place: " + selectedPlaceName + selectedPlaceLatLng);
+                addedLocationName=selectedPlaceName;
+                addedLocationLatLng=selectedPlaceLatLng;
                 updateMap(selectedPlaceName,selectedPlaceLatLng);
             }
             @Override
@@ -194,14 +208,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kelowna));
     }
     public void useCurrentLocation(View view){
-        if(currentPlace.getPlace()!=null) {
-            autocompleteFragment.setText(currentPlaceName); // sets the search bar to the the name of the current Place.
+        if(currentPlace!=null) {
+            Toast.makeText(this, "Your Current Location", Toast.LENGTH_SHORT).show();
+            autocompleteFragment.setText(currentPlaceName);// sets the search bar to the the name of the current Place.
+            addedLocationName=currentPlaceName;
+            addedLocationLatLng=currentPlaceLatlng;
             updateMap(currentPlaceName, currentPlaceLatlng);
         }
-        else return;
+        else{
+            Toast.makeText(this, "Processing, Click Again.", Toast.LENGTH_SHORT).show();
+        }
     }
     public void onSave(View view){
-
+        Log.i("Saved Values",addedLocationName+", "+addedLocationLatLng);
+        ToDo todo=toDoList.get(toDoIndex); // This gets the todo to be changed.
+        todo.setLocationName(addedLocationName);
+        todo.setLocationLatLng(addedLocationLatLng);
+        Log.i("Milgi", toDoList.toString());
+        setResult(RESULT_OK, new Intent().putExtra("TodoList",toDoList));
+        try {
+            finish();
+        }catch (Exception e){
+            Log.e("Syapa", e.toString());
+        }
     }
     public void onCancel(View view){
         finish(); // Simply goes back to previous activity.
