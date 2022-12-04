@@ -82,6 +82,49 @@ The Google Maops SDK is used in the ToDoList app in the MapsActivity and the get
 
 This API is used i the GetOrigin Activity. When we select the Location for the origin, then this API is used to get the Directions between the ToDo task location and the the location for the origin. These details are then used to form a route, which is depicted as a line joining the two places.
 
+## New Features added in the Individual Assignment
+
+### Adding a Location
+
+The user can now add a location to ToDo task. This can be done in 2 ways:
+
+#### Searching in the Places Autocomplete Fragment
+
+This will give the user auto-suggestions depending on whatever the user is typing in the fragment.
+APIs used:
+- Places API to search for place details and get suggestions
+- Maps SDK to show the selected point on the Map.
+
+#### Using the Current Location
+
+The user can use the current location of the device and save that as the ToDo location.
+APIs used:
+- Places API to search for place details(of the current location)
+- Maps SDK to show the selected point on the Map.
+
+### Getting the Direction to the ToDo task location
+
+The user can get the direction routes to the ToDo task location. This can be done by clicking on the Get Directions Button in the activity_maps.xml which taskes the user to the GetOrigin activity where the user needs to set a location for the Origin point which can be done as:
+
+#### Using the Current Location As Origin Button
+
+This is will use the current location as the origin point and will then show a route based upon the 2 points.
+APIs used:
+- Directions API to get the direction detail between the 2 places
+- Maps SDK to show the route on the map
+
+#### Searching in the Places Autocomplete Fragment
+
+This will give the user auto-suggestions depending on whatever the user is typing in the fragment. The place selected will be set as origin and then the direction route will be obtained between these 2 places and then be shown on the map.
+APIs used:
+- Directions API to get the direction detail between the 2 places
+- Maps SDK to show the route on the map
+- Place API to get the Place details for the origin and its search suggestions.
+
+### Distance between Origin and ToDo Location
+
+The GetOrigin Activity also calculates the distance between the point of Origin and the ToDo Task Location and shows the distance to the user.
+
 Since our system already had a GUI, we made improvements to the existing GUI. We designed a custom icon and added that to our app. We also implemented general functionality and interface improvements, such as adding a search bar.
 
 ### Features that enable your system to handle the drawbacks of the first version of the system
