@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +27,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
+import com.google.maps.android.SphericalUtil;
 import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
@@ -191,7 +193,9 @@ public class GetOrigin extends FragmentActivity implements OnMapReadyCallback {
         }
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
-
+        TextView dateView=findViewById(R.id.dateTextView);
+        double distance= SphericalUtil.computeDistanceBetween(origin,dest)/1000;
+       dateView.setText(name+" to "+taskLocationName+": "+distance+" km");
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 6));
     }
     public void useCurrentLocationAsOrigin(View view){
