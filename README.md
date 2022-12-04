@@ -1,3 +1,4 @@
+
 # ToDoList
 
 ## About
@@ -85,10 +86,16 @@ This API is used i the GetOrigin Activity. When we select the Location for the o
 ## New Features added in the Individual Assignment
 
 ### Adding a Location
+<img width="150" alt="addLocation" src="https://user-images.githubusercontent.com/77290018/205484404-331b8b19-702e-4f07-8aba-783a53472319.png">
+<img width="150" alt="editLocation" src="https://user-images.githubusercontent.com/77290018/205483952-4d832cb3-7d56-46a9-9594-8dd5e3dd439d.png">
+<img width="150" alt="DefaultMap" src="https://user-images.githubusercontent.com/77290018/205483949-e624f1b5-416a-4ba8-94d7-f1a3fab3f038.png">
 
 The user can now add a location to ToDo task. This can be done in 2 ways:
 
 #### Searching in the Places Autocomplete Fragment
+
+<img width="150" alt="Autocomplete" src="https://user-images.githubusercontent.com/77290018/205483947-0adedf1f-2f91-4bab-84df-4275f1548af5.png">
+<img width="150" alt="mapPointer" src="https://user-images.githubusercontent.com/77290018/205483955-fb8ffa48-abae-41ad-b7ae-428c5c778894.png">
 
 This will give the user auto-suggestions depending on whatever the user is typing in the fragment.
 APIs used:
@@ -97,12 +104,16 @@ APIs used:
 
 #### Using the Current Location
 
+<img width="150" alt="CurrentLocation" src="https://user-images.githubusercontent.com/77290018/205483948-1d42c4ba-6fee-4a72-9f36-d105d00dd3de.png">
+
 The user can use the current location of the device and save that as the ToDo location.
 APIs used:
 - Places API to search for place details(of the current location)
 - Maps SDK to show the selected point on the Map.
 
 ### Getting the Direction to the ToDo task location
+
+<img width="150" alt="distance_Directions" src="https://user-images.githubusercontent.com/77290018/205483951-6ec5f0a9-8092-4d8c-9c00-052fe2eb1df7.png">
 
 The user can get the direction routes to the ToDo task location. This can be done by clicking on the Get Directions Button in the activity_maps.xml which taskes the user to the GetOrigin activity where the user needs to set a location for the Origin point which can be done as:
 
@@ -115,6 +126,8 @@ APIs used:
 
 #### Searching in the Places Autocomplete Fragment
 
+<img width="150" alt="Autocomplete" src="https://user-images.githubusercontent.com/77290018/205483947-0adedf1f-2f91-4bab-84df-4275f1548af5.png">
+
 This will give the user auto-suggestions depending on whatever the user is typing in the fragment. The place selected will be set as origin and then the direction route will be obtained between these 2 places and then be shown on the map.
 APIs used:
 - Directions API to get the direction detail between the 2 places
@@ -123,61 +136,17 @@ APIs used:
 
 ### Distance between Origin and ToDo Location
 
+<img width="150" alt="distance_Directions" src="https://user-images.githubusercontent.com/77290018/205483951-6ec5f0a9-8092-4d8c-9c00-052fe2eb1df7.png">
+
 The GetOrigin Activity also calculates the distance between the point of Origin and the ToDo Task Location and shows the distance to the user.
 
 Since our system already had a GUI, we made improvements to the existing GUI. We designed a custom icon and added that to our app. We also implemented general functionality and interface improvements, such as adding a search bar.
 
-### Features that enable your system to handle the drawbacks of the first version of the system
+### Filtering Tasks Based Upon Location(Adjusted)
 
-#### Made to-do's searchable - Limitation fix 1
-- users can search for tasks by name. This helps users find tasks more easily. Used the AndroidX library to implement a search bar. This feature improves the UI and laid the groundwork for allowing users to search tasks.
-<img src="https://user-images.githubusercontent.com/77898527/200717087-9fd058f9-d2d8-4784-ab4d-d55fc04206fd.png" alt="searchTasks" width="100"/>
+The user can also Filter his ToDo tasks based upon those that have their Location Set by selecting the 'Location' Tag under the Filters Menu.
 
-#### Completed tasks are viewable - Limitation fix 2
-- now displaying completed tasks using a RecyclerView (from AndroidX Library). This feature is a major improvement, because it allows users to reference previously completed tasks. Previously, tasks just became invisible to the user upon completion.
-<img src="https://user-images.githubusercontent.com/77898527/200717214-a077b894-7877-4953-9e43-907a2344fec9.png" alt="viewCompleted" width="100"/>
-
-#### Sorting tasks by their due date or grade weighting - Limitation fix 3
-- Users are able to sort their tasks by due date. They can sort them by due date ascending or descending.
-<img src="https://user-images.githubusercontent.com/77038122/201797367-33f34ba7-7131-4092-ae2e-49ae8238709c.png" alt="sorting menu" width="100"/>
-
-#### Automatically classify tasks as graded or ungraded - Limitation fix 4
-- Tasks are by default considered ungraded until the user sets them as graded at which time the tag automatically changes to graded
-
-#### Added filtering by tags
-- users can sort tasks based on tags. This feature helps users organize their tasks.
-<img src="https://user-images.githubusercontent.com/77898527/200717120-6b2f2f3e-4b08-4d8b-b7b9-7c01065b5a02.png" alt="filteringByTags" width="100"/>
-
-#### Improved goBack()
-- refactored the method to improve performance (a previous limitation). This fix improves performance and long-term stability.
-
-#### Show due date on main page
-- users can now see the due dates they add on the main page. This feature makes the app easier to use; users can see the due date on the main page instead of having to click on the task now.
-<img src="https://user-images.githubusercontent.com/77898527/200717154-85eb8992-f97d-4f5e-9f8c-692e3994d65a.png" alt="displayDueDate" width="100"/>
-
-#### Refactored the way persistence is implemented
-- Changed the way that tasks are stored to the disk. There is only one list of tasks being saved now. This makes the code easier to work with because we don't need to always be checking multiple lists when performing operations. This still is a problem to an extent, but is easier to manage.
-
-### Features that use open-source libraries to improve the functionality of the system
-
-#### Added tags - New feature 1
-- users can now classify their tasks using tags. Tags are implemented using, among others the AndroidX Library. Tags improve our system because they give the user the option to categorize their tasks. We used a library called RecyclerView for implementing the list of active tags on a task. This one of the libraries available in the Android library, but it was a steep learning curve to be able use it. Many hours were spent by multiple team members in order to understand how to use RecyclerView.
-<img src="https://user-images.githubusercontent.com/77898527/200717171-08738099-3592-425b-9bb1-6eaeb21d4fd5.png" alt="addTags" width="100"/>
-
-#### Added context menu - New feature 2
-- used the Skydoves open-source library to add a context menu when the user clicks the three dots on a task. This feature improves the effectiveness of our app by reducing the number of steps users have to complete to perform common tasks.
-<img src="https://user-images.githubusercontent.com/77898527/200717248-8847e1d4-6115-4310-9fd0-512885bbe4ea.png" alt="contextMenu" width="100"/>
-
-#### App notifications - New feature 3
-- ️The user can now setup to receive notifications if a certain task is due soon or overdue. This implementation uses the open-source android library Notification & Notification Manager to create pop-up notifications & lock screen notifications. This provides meaningful warnings & information to our users allowing them to complete their objectives in a timely manner.
-
-<img src ="https://user-images.githubusercontent.com/52676747/201796968-0e7b5aba-d0d1-4b54-9b3c-f06e339d5e62.PNG" alt="contextMenu" width="100"/><img src ="https://user-images.githubusercontent.com/52676747/201797007-e4eab925-63fb-49d5-a782-2cecd68d86e5.PNG" alt="contextMenu" width="100"/><img src ="https://user-images.githubusercontent.com/52676747/201797599-498e03e7-769c-4042-aac1-17d082e48bd0.PNG" alt="contextMenu" width="100"/>
-
-#### Added navigation features to the main list - New feature 4
-- The list now automatically scrolls to the bottom to show newly added tasks. This makes the app easier to use because users can see and edit their tasks immediately after adding them instead of having to scroll down.
-- The newly added task briefly flashes a gray color so that it is clear to the user where their new task was added. This uses a TransitionDrawable object as the background of the task in order to animate it.
-- Users can use the gray button on the right to quickly navigate between the top and bottom of the list. This feature improves the efficiency of use for our app. Users can now easily navigate to their recent tasks at the bottom and back up to the search bar and the filter menu. This uses a floating button from the google android material library in order to keep the button in the same spot on the screen regardless of how far the user has scrolled.
-<img src="https://user-images.githubusercontent.com/77038122/201798552-ebeaf824-acf6-4fa1-9600-a84d1960c1c8.png" alt="viewCompleted" width="100"/>
+<img width="150" alt="FilterLocationTag" src="https://user-images.githubusercontent.com/77290018/205483954-c6a897ba-807b-47ae-9774-38fdfe5805db.png">
 
 ## Compiling our code
 There are two ways to compile our code:
