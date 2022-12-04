@@ -1,10 +1,10 @@
 # ToDoList
 
 ## About
-This is the repository for our COSC310 project. We are creating an Android to-do list app for students.
+This is the repository for my COSC310 Indiviual Project project. We are creating an Android to-do list app for students.
 
 ## Class structure
-All layout code is stored in the layout folder as eight xml files.
+All layout code is stored in the layout folder as ten xml files.
 - activity_main.xml contains the layout for our main screen, including a RecyclerView for to-do items
 - todo_item.xml is the layout of an individual to-do item, which are used to populate the RecyclerView
 - activity_edit_todo.xml contains the layout for the edit to-do page that users can reach through the context menu after clicking on a to-do
@@ -13,6 +13,8 @@ All layout code is stored in the layout folder as eight xml files.
 - filter_menu_item.xml contains the layout of an individual filter item
 - activity_total_grade.xml is the layout for the max grade input page
 - activity_grade_received.xml is the layout for the grade received page
+- activity_maps.xml is the layout for showing the todoLocation on a map and contained the google autocomplete fragment to make searches. Also, it allowed to move to the activity_get_origin.xml where the directions/route between origin and destination is shown.
+- activity_get_origin.xml is the layout for showing the route between the orign and the destination  on a map and dispaying the distance between them in a textfield. In addition, it also has the google autocomplete fragment to make searches.
 
 All functional code is contained in .java files in the todolist folder.
 
@@ -55,7 +57,30 @@ It contains the onDeleteClick() method.
 
 Test code is contained in **EditToDoActivityUnitTest**
 
-## Documentation for Assignment 3
+**Config.java** contains the Google API Key. This class has not been pushed to github and will be provided to the TA separately.
+
+**MapsActivity** is an activity which is used to set the location of the the todo. Once the location is set the the user can move to the the getOrigins Activity by clicking on the Get Directions Button. The MapsActivity asks for permission for using the device's location and proceeds getting the location of the todo and then after saving it, the user can also get directions to do the tasks(todo).
+
+**GetOrigin** is an activity which is used to show the routes between the Origin location selected and the Location of the todo task. This activity is called only when the the location of the todo task has been set and the user clicks on the Get Directions Button.
+
+## Documentation for Assignment 4(Individual)
+
+In this individual assignment, I have made use of Google APIs. These include the:
+- Google Places  API
+- Google Maps SDK for Android
+- Google Directions API
+
+### Google Places API
+
+The Google Places API has been used to get the Place details including the PlaceName, the Place Latitude and Longitude values. These values have been used in the MapsActivity to store the locationDetails of the ToDo task. a Google Place Autocomplete Fragment Search Bar has been added to both the MapsActivity and the GetOrigin activity. These search bars give the users auto-suggestions as they start typing in any place name or address. Once the place is selected, that places variables(name, latitude and longitude) are pulled out and used for storage or to show on the map. Furthermore, the Places API is also used to get the location details of the device being used.
+
+### Google Maps SDK for Android
+
+The Google Maops SDK is used in the ToDoList app in the MapsActivity and the getOrigin activity. This has been used to show the map on the phone screen. The would take the Place variables like the Place Latitude and Longitude and Place Name and use that information to show a pointer on the Map depicting that particular place. This visualization helps to give the user a better experience of the App. Furthermore, the map fragment is also used to depict the route between the origin and the taskLocation in the GetOrigin Activity.
+
+### Google Directions API
+
+This API is used i the GetOrigin Activity. When we select the Location for the origin, then this API is used to get the Directions between the ToDo task location and the the location for the origin. These details are then used to form a route, which is depicted as a line joining the two places.
 
 Since our system already had a GUI, we made improvements to the existing GUI. We designed a custom icon and added that to our app. We also implemented general functionality and interface improvements, such as adding a search bar.
 
