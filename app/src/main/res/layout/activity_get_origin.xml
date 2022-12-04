@@ -36,7 +36,7 @@
         android:id="@+id/currentLocationDirectionBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="useCurrentLocation"
+        android:onClick="useCurrentLocationAsOrigin"
         android:text="Current Location📍 as Origin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

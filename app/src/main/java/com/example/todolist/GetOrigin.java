@@ -196,7 +196,7 @@ public class GetOrigin extends FragmentActivity implements OnMapReadyCallback {
 
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 6));
     }
-    public void useCurrentLocation(View view){
+    public void useCurrentLocationAsOrigin(View view){
         OriginName=currentLocationName;
         OriginLatLng=currentLocationLatLng;
         getDirections(OriginName,OriginLatLng);

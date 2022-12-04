@@ -271,7 +271,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if(currentPlaceLatlng!=null) {
                 intent.putExtra("CurrentPlaceName",currentPlaceName);
                 intent.putExtra("CurrentLatitude", currentPlaceLatlng.latitude);
-                intent.putExtra("CurrentLatitude", currentPlaceLatlng.longitude);
+                intent.putExtra("CurrentLongitude", currentPlaceLatlng.longitude);
                 startActivity(intent);
             } else Toast.makeText(this, "Please wait. Try Again", Toast.LENGTH_SHORT).show(); // This message is shown so that the startActivity happens only when we have the current LocationLatLng.
         }
