@@ -259,7 +259,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         finish(); // Simply goes back to previous activity.
     }
-    public void getOrigin(){
-
+    public void getDirections(View view){
+        ToDo todo=toDoList.get(toDoIndex);
+        String latitude=todo.getLatitude();
+        String longitude=todo.getLongitude();
+        if( latitude != null && longitude != null) {
+            Intent intent = new Intent(this, GetOrigin.class);
+            intent.putExtra("TaskLocationName",todo.getLocationName());
+            intent.putExtra("TaskLatitude",latitude);
+            intent.putExtra("TaskLongitude",longitude);
+            if(currentPlaceLatlng!=null) {
+                intent.putExtra("CurrentPlaceName",currentPlaceName);
+                intent.putExtra("CurrentLatitude", currentPlaceLatlng.latitude);
+                intent.putExtra("CurrentLatitude", currentPlaceLatlng.longitude);
+                startActivity(intent);
+            } else Toast.makeText(this, "Please wait. Try Again", Toast.LENGTH_SHORT).show(); // This message is shown so that the startActivity happens only when we have the current LocationLatLng.
+        }
+        else{
+            Toast.makeText(this, "Set Task Location First", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }
