@@ -259,4 +259,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         finish(); // Simply goes back to previous activity.
     }
+    public void getOrigin(){
+
+    }
 }
