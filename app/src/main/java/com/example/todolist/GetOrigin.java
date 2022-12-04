@@ -53,6 +53,7 @@ public class GetOrigin extends FragmentActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Set the Origin");
         Intent intent=getIntent();
         taskLocationName=intent.getStringExtra("TaskLocationName");
         taskLocationLat=Double.parseDouble(intent.getStringExtra("TaskLatitude"));
