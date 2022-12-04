@@ -38,10 +38,8 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.maps.android.SphericalUtil;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
@@ -264,7 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String latitude=todo.getLatitude();
         String longitude=todo.getLongitude();
         if( latitude != null && longitude != null) {
-            Intent intent = new Intent(this, GetOrigin.class);
+            Intent intent = new Intent(this, GetDirections.class);
             intent.putExtra("TaskLocationName",todo.getLocationName());
             intent.putExtra("TaskLatitude",latitude);
             intent.putExtra("TaskLongitude",longitude);
