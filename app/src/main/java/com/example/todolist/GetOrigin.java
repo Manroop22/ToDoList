@@ -43,8 +43,6 @@ public class GetOrigin extends FragmentActivity implements OnMapReadyCallback {
     AutocompleteSupportFragment autocompleteFragment;
     String OriginName;
     LatLng OriginLatLng;
-    String addedLocationName;
-    LatLng addedLocationLatLng;
     String currentLocationName;
     LatLng currentLocationLatLng;
     String taskLocationName;
@@ -124,8 +122,8 @@ public class GetOrigin extends FragmentActivity implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
     }
     public void getDirections(String name, LatLng latLng){
-        LatLng origin = OriginLatLng;
-        mMap.addMarker(new MarkerOptions().position(origin).title("Origin: "+OriginName));
+        LatLng origin = latLng;
+        mMap.addMarker(new MarkerOptions().position(origin).title("Origin: "+name));
 
         LatLng dest = new LatLng(taskLocationLat,taskLocationLong);
         mMap.addMarker(new MarkerOptions().position(dest).title("Destination: "+taskLocationName));
