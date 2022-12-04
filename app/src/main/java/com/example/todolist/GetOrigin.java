@@ -197,7 +197,7 @@ public class GetOrigin extends FragmentActivity implements OnMapReadyCallback {
         TextView dateView=findViewById(R.id.dateTextView);
         double distance= SphericalUtil.computeDistanceBetween(origin,dest)/1000;
        dateView.setText(name+" to "+taskLocationName+": "+Math.round(distance * 1000.0) / 1000.0+" km");
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 6));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(origin, 8));
     }
     public void useCurrentLocationAsOrigin(View view){
         OriginName=currentLocationName;
