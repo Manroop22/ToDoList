@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GetDirections extends FragmentActivity implements OnMapReadyCallback {
+public class GetOrigin extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityGetOriginBinding binding;

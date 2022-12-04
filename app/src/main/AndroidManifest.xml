@@ -34,7 +34,7 @@
             android:value="YOUR_API_KEY" />
 
         <activity
-            android:name=".GetDirections"
+            android:name=".GetOrigin"
             android:exported="false"
             android:label="@string/title_activity_get_origin" />
         <activity

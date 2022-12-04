@@ -262,7 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String latitude=todo.getLatitude();
         String longitude=todo.getLongitude();
         if( latitude != null && longitude != null) {
-            Intent intent = new Intent(this, GetDirections.class);
+            Intent intent = new Intent(this, GetOrigin.class);
             intent.putExtra("TaskLocationName",todo.getLocationName());
             intent.putExtra("TaskLatitude",latitude);
             intent.putExtra("TaskLongitude",longitude);
