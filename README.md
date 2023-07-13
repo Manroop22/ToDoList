@@ -15,7 +15,7 @@ All layout code is stored in the layout folder as ten xml files.
 - activity_total_grade.xml is the layout for the max grade input page
 - activity_grade_received.xml is the layout for the grade received page
 - activity_maps.xml is the layout for showing the todoLocation on a map and contained the google autocomplete fragment to make searches. Also, it allowed to move to the activity_get_origin.xml where the directions/route between origin and destination is shown.
-- activity_get_origin.xml is the layout for showing the route between the orign and the destination  on a map and dispaying the distance between them in a textfield. In addition, it also has the google autocomplete fragment to make searches.
+- activity_get_origin.xml is the layout for showing the route between the orign and the destination  on a map and displaying the distance between them in a textfield. In addition, it also has the google autocomplete fragment to make searches.
 
 All functional code is contained in .java files in the todolist folder.
 
