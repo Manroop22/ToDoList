@@ -77,7 +77,7 @@ The Google Places API has been used to get the Place details including the Place
 
 ### Google Maps SDK for Android
 
-The Google Maops SDK is used in the ToDoList app in the MapsActivity and the getOrigin activity. This has been used to show the map on the phone screen. The would take the Place variables like the Place Latitude and Longitude and Place Name and use that information to show a pointer on the Map depicting that particular place. This visualization helps to give the user a better experience of the App. Furthermore, the map fragment is also used to depict the route between the origin and the taskLocation in the GetOrigin Activity.
+The Google Maps SDK is used in the ToDoList app in the MapsActivity and the getOrigin activity. This has been used to show the map on the phone screen. The would take the Place variables like the Place Latitude and Longitude and Place Name and use that information to show a pointer on the Map depicting that particular place. This visualization helps to give the user a better experience of the App. Furthermore, the map fragment is also used to depict the route between the origin and the taskLocation in the GetOrigin Activity.
 
 ### Google Directions API
 
